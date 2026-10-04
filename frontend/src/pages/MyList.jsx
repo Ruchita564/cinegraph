@@ -10,13 +10,13 @@ function MyList({ onBack, onMovieClick }) {
         const userId = localStorage.getItem("userId");
 
 const response = await axios.get(
-  `http://localhost:8080/api/my-list/${userId}`
+  `${import.meta.env.VITE_API_URL}/api/my-list/${userId}`
 );
 
         const movieDetails = await Promise.all(
           response.data.map(async (item) => {
             const movieResponse = await axios.get(
-              `http://localhost:8080/api/movies/${item.movieId}`
+              `${import.meta.env.VITE_API_URL}:8080/api/movies/${item.movieId}`
             );
 
             return movieResponse.data;

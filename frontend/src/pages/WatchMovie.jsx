@@ -10,7 +10,7 @@ function WatchMovie({ movieId, onBack }) {
     const fetchMovie = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/movies/${movieId}`
+          `${import.meta.env.VITE_API_URL}/api/movies/${movieId}`
         );
 
         setMovie(response.data);
@@ -44,7 +44,7 @@ function WatchMovie({ movieId, onBack }) {
 
     try {
       await axios.post(
-        "http://localhost:8080/api/watch-history",
+        "${import.meta.env.VITE_API_URL}/api/watch-history",
         null,
         {
           params: {

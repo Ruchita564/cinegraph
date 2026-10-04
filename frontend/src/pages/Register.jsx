@@ -12,7 +12,7 @@ function Register({ onLogin }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/auth/register",
+        "${import.meta.env.VITE_API_URL}:8080/api/auth/register",
         {
           name: name,
           email: email,

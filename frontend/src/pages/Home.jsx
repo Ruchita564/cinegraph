@@ -39,19 +39,19 @@ function Home({
   const loadMovies = async () => {
     try {
       const popular = await axios.get(
-        "http://localhost:8080/api/movies/popular"
+        "${import.meta.env.VITE_API_URL}/api/movies/popular"
       );
 
       const trending = await axios.get(
-        "http://localhost:8080/api/movies/trending"
+        "${import.meta.env.VITE_API_URL}/api/movies/trending"
       );
 
       const topRated = await axios.get(
-        "http://localhost:8080/api/movies/top-rated"
+        "${import.meta.env.VITE_API_URL}/api/movies/top-rated"
       );
 
       const nowPlaying = await axios.get(
-        "http://localhost:8080/api/movies/now-playing"
+        "${import.meta.env.VITE_API_URL}/api/movies/now-playing"
       );
 
       const popularList = popular.data?.results || [];

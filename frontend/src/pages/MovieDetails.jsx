@@ -11,7 +11,7 @@ function MovieDetails({ movieId, onBack }) {
     const fetchMovie = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/movies/${movieId}`
+          `${import.meta.env.VITE_API_URL}/api/movies/${movieId}`
         );
 
         setMovie(response.data);
@@ -27,7 +27,7 @@ function MovieDetails({ movieId, onBack }) {
     const fetchTrailer = async () => {
       try {
         const response = await axios.get(
-  `http://localhost:8080/api/movies/${movieId}/videos`
+  `${import.meta.env.VITE_API_URL}/api/movies/${movieId}/videos`
 );
 
 const videos = response.data.results || [];
@@ -61,7 +61,7 @@ if (trailer) {
         const userId = localStorage.getItem("userId");
 
         const response = await axios.get(
-          `http://localhost:8080/api/my-list/${userId}`
+          `${import.meta.env.VITE_API_URL}/api/my-list/${userId}`
         );
 
         const exists = response.data.some(
@@ -85,7 +85,7 @@ if (trailer) {
 
       if (isInMyList) {
         await axios.delete(
-          `http://localhost:8080/api/my-list?userId=${userId}&movieId=${movieId}`
+          `${import.meta.env.VITE_API_URL}/api/my-list?userId=${userId}&movieId=${movieId}`
         );
 
         setIsInMyList(false);
@@ -94,7 +94,7 @@ if (trailer) {
       }
 
       await axios.post(
-        `http://localhost:8080/api/my-list?userId=${userId}&movieId=${movieId}`
+        `${import.meta.env.VITE_API_URL}/api/my-list?userId=${userId}&movieId=${movieId}`
       );
 
       setIsInMyList(true);
