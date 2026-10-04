@@ -1,4 +1,3 @@
-
 package com.cinegraph.backend.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -16,16 +15,20 @@ public class CorsConfig implements WebMvcConfigurer {
                         "http://localhost:5174",
                         "https://cinegraph-mu.vercel.app",
                         "https://cinegraph-f8swcvj9w-ruchitasatpute570-2986.vercel.app",
-                        "https://cinegraph-jvogghe10-ruchitasatpute570-2986.vercel.app"
+                        "https://cinegraph-jvogghe10-ruchitasatpute570-2986.vercel.app",
+                        "https://cinegraph-12hlfmw3y-ruchitasatpute570-2986.vercel.app"
                 )
                 .allowedMethods(
                         "GET",
                         "POST",
                         "PUT",
                         "DELETE",
-                        "OPTIONS"
+                        "OPTIONS",
+                        "PATCH"
                 )
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+                .exposedHeaders("*")
+                .allowCredentials(false)
+                .maxAge(3600);
     }
 }
-
