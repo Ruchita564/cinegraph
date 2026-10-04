@@ -182,3 +182,550 @@
     border-right-color: var(--border);
   }
 }
+/* =========================================================
+   CINEGRAPH - SEARCH PAGE
+   ========================================================= */
+
+.search-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(90, 55, 180, 0.18),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(30, 100, 220, 0.12),
+      transparent 35%
+    ),
+    #08090d;
+
+  color: #ffffff;
+  padding: 35px 6%;
+  box-sizing: border-box;
+}
+
+/* =========================
+   HEADER
+   ========================= */
+
+.search-header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 45px;
+}
+
+.search-back-button {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.search-back-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateX(-3px);
+}
+
+.search-title h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.search-title p {
+  margin: 7px 0 0;
+  color: #9699a8;
+  font-size: 15px;
+}
+
+/* =========================
+   SEARCH BOX
+   ========================= */
+
+.search-main-box {
+  max-width: 1000px;
+  display: flex;
+  gap: 12px;
+  margin: 0 auto 55px;
+}
+
+.search-input-wrapper {
+  flex: 1;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  border-radius: 14px;
+
+  padding: 0 18px;
+
+  box-sizing: border-box;
+
+  transition: 0.25s ease;
+}
+
+.search-input-wrapper:focus-within {
+  border-color: rgba(135, 95, 255, 0.8);
+  box-shadow: 0 0 0 4px rgba(110, 75, 230, 0.12);
+}
+
+.search-icon {
+  font-size: 27px;
+  color: #8f94a6;
+  margin-right: 12px;
+  line-height: 1;
+}
+
+.search-input-wrapper input {
+  flex: 1;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  font-size: 16px;
+}
+
+.search-input-wrapper input::placeholder {
+  color: #777b8b;
+}
+
+.clear-search {
+  border: none;
+  background: transparent;
+  color: #8d91a2;
+
+  font-size: 25px;
+
+  cursor: pointer;
+
+  padding: 2px 6px;
+
+  transition: 0.2s;
+}
+
+.clear-search:hover {
+  color: #ffffff;
+}
+
+.search-main-button {
+  height: 58px;
+
+  padding: 0 30px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    #7048e8,
+    #4d7cff
+  );
+
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 25px rgba(75, 70, 220, 0.25);
+
+  transition: 0.25s ease;
+}
+
+.search-main-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(75, 70, 220, 0.38);
+}
+
+/* =========================
+   RESULTS HEADER
+   ========================= */
+
+.search-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.search-results-heading {
+  margin-bottom: 25px;
+}
+
+.search-results-heading h2 {
+  margin: 0;
+
+  font-size: 23px;
+  font-weight: 600;
+}
+
+.search-results-heading h2 span {
+  color: #8f72ff;
+}
+
+.search-results-heading p {
+  margin: 7px 0 0;
+
+  color: #777b8b;
+
+  font-size: 14px;
+}
+
+/* =========================
+   MOVIE GRID
+   ========================= */
+
+.search-movie-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(180px, 1fr)
+    );
+
+  gap: 28px 20px;
+}
+
+/* =========================
+   MOVIE CARD
+   ========================= */
+
+.search-movie-card {
+  min-width: 0;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.search-movie-card:hover {
+  transform: translateY(-8px);
+}
+
+/* =========================
+   POSTER
+   ========================= */
+
+.search-poster-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio: 2 / 3;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  background: #151720;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.search-movie-poster {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.4s ease,
+    filter 0.4s ease;
+}
+
+.search-movie-card:hover
+.search-movie-poster {
+  transform: scale(1.06);
+
+  filter: brightness(0.62);
+}
+
+/* =========================
+   CARD OVERLAY
+   ========================= */
+
+.search-card-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.65),
+      transparent 55%
+    );
+
+  opacity: 0;
+
+  transition: 0.3s ease;
+}
+
+.search-movie-card:hover
+.search-card-overlay {
+  opacity: 1;
+}
+
+.play-icon {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  color: #11131a;
+
+  font-size: 18px;
+
+  padding-left: 3px;
+
+  box-shadow:
+    0 5px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================
+   NO POSTER
+   ========================= */
+
+.search-no-poster {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #777b8b;
+
+  background:
+    linear-gradient(
+      145deg,
+      #171925,
+      #0e1017
+    );
+}
+
+.search-no-poster span {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.search-no-poster p {
+  margin: 0;
+
+  font-size: 13px;
+}
+
+/* =========================
+   MOVIE INFORMATION
+   ========================= */
+
+.search-movie-info {
+  padding: 12px 3px 0;
+}
+
+.search-movie-info h3 {
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #f4f4f7;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-movie-meta {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 7px;
+
+  color: #85899a;
+
+  font-size: 13px;
+}
+
+.movie-rating {
+  color: #d6d8e2;
+}
+
+/* =========================
+   EMPTY SEARCH
+   ========================= */
+
+.search-empty {
+  min-height: 400px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  color: #ffffff;
+}
+
+.empty-icon {
+  width: 75px;
+  height: 75px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  font-size: 32px;
+
+  margin-bottom: 20px;
+}
+
+.search-empty h2 {
+  margin: 0;
+
+  font-size: 24px;
+}
+
+.search-empty p {
+  max-width: 500px;
+
+  margin: 10px 0 22px;
+
+  color: #85899a;
+
+  line-height: 1.6;
+}
+
+.search-empty strong {
+  color: #ffffff;
+}
+
+.search-empty button {
+  border: none;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #ffffff;
+
+  padding: 11px 20px;
+
+  border-radius: 9px;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.search-empty button:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 768px) {
+
+  .search-page {
+    padding: 25px 20px;
+  }
+
+  .search-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+  }
+
+  .search-title h1 {
+    font-size: 29px;
+  }
+
+  .search-main-box {
+    flex-direction: column;
+  }
+
+  .search-main-button {
+    width: 100%;
+  }
+
+  .search-movie-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 24px 14px;
+  }
+
+  .search-results-heading h2 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 420px) {
+
+  .search-movie-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .search-movie-info h3 {
+    font-size: 13px;
+  }
+
+  .search-movie-meta {
+    font-size: 11px;
+  }
+}
