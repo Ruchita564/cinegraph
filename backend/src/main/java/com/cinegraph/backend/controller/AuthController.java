@@ -1,10 +1,12 @@
 package com.cinegraph.backend.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.cinegraph.backend.dto.LoginRequest;
 import com.cinegraph.backend.dto.RegisterRequest;
@@ -13,7 +15,10 @@ import com.cinegraph.backend.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174"})
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "http://localhost:5174"
+})
 public class AuthController {
 
     private final UserService userService;
@@ -22,13 +27,34 @@ public class AuthController {
         this.userService = userService;
     }
 
+    // =========================
+    // REGISTER
+    // =========================
     @PostMapping("/register")
     public User register(@RequestBody RegisterRequest request) {
-        return userService.register(request);
+
+        try {
+            return userService.register(request);
+
+        } catch (RuntimeException e) {
+
+            if ("Email already registered".equals(e.getMessage())) {
+                throw new ResponseStatusException(
+                        HttpStatus.CONFLICT,
+                        "Email already registered"
+                );
+            }
+
+            throw e;
+        }
     }
 
+    // =========================
+    // LOGIN
+    // =========================
     @PostMapping("/login")
     public User login(@RequestBody LoginRequest request) {
+
         return userService.login(request);
     }
 }

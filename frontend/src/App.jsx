@@ -1,23 +1,85 @@
-
-import Profile from "./pages/Profile";
-import MovieDetails from "./pages/MovieDetails";
-import MyList from "./pages/MyList";
 import { useState } from "react";
 import axios from "axios";
+
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import MovieDetails from "./pages/MovieDetails";
 import WatchMovie from "./pages/WatchMovie";
+import MyList from "./pages/MyList";
+import Profile from "./pages/Profile";
 
 function App() {
+  // Current page
   const [page, setPage] = useState("login");
+
+  // Selected movie
   const [selectedMovieId, setSelectedMovieId] = useState(null);
+
+  // Movie being watched
   const [watchMovieId, setWatchMovieId] = useState(null);
+
+  // Profile page
   const [profilePage, setProfilePage] = useState(false);
 
+  // Search
   const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
+  // =========================
+  // LOGIN SUCCESS
+  // =========================
+  const handleLoginSuccess = (user) => {
+    console.log("Login successful:", user);
+
+    if (user) {
+      localStorage.setItem(
+        "user",
+        JSON.stringify(user)
+      );
+
+      if (user.id) {
+        localStorage.setItem(
+          "userId",
+          user.id.toString()
+        );
+      }
+    }
+
+    setProfilePage(false);
+    setPage("home");
+  };
+
+  // =========================
+  // REGISTER SUCCESS
+  // =========================
+  const handleRegisterSuccess = (user) => {
+    console.log("Registration successful:", user);
+
+    if (user) {
+      localStorage.setItem(
+        "user",
+        JSON.stringify(user)
+      );
+
+      if (user.id) {
+        localStorage.setItem(
+          "userId",
+          user.id.toString()
+        );
+      }
+    }
+
+    // Make sure profile is closed
+    setProfilePage(false);
+
+    // Go to Home
+    setPage("home");
+  };
+
+  // =========================
+  // SEARCH
+  // =========================
   const handleSearch = async () => {
     if (!searchQuery.trim()) {
       return;
@@ -32,47 +94,92 @@ function App() {
 
       console.log("Search results:", response.data);
 
-      setSearchResults(response.data.results || []);
+      setSearchResults(
+        response.data.results || []
+      );
     } catch (error) {
       console.error("Search failed:", error);
+
       setSearchResults([]);
     }
   };
 
+  // =========================
+  // LOGOUT
+  // =========================
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("userId");
+
+    setProfilePage(false);
+    setSelectedMovieId(null);
+    setWatchMovieId(null);
+    setSearchResults([]);
+    setSearchQuery("");
+
+    setPage("login");
+  };
+
   return (
     <>
-      {/* LOGIN */}
+      {/* =====================================
+          LOGIN
+      ===================================== */}
       {page === "login" && (
         <Login
-          onRegister={() => setPage("register")}
-          onLoginSuccess={() => setPage("home")}
+          onRegister={() => {
+            setProfilePage(false);
+            setPage("register");
+          }}
+          onLoginSuccess={handleLoginSuccess}
         />
       )}
 
-      {/* REGISTER */}
+      {/* =====================================
+          REGISTER
+      ===================================== */}
       {page === "register" && (
         <Register
-          onLogin={() => setPage("login")}
+          onRegisterSuccess={handleRegisterSuccess}
+          onLogin={() => {
+            setPage("login");
+          }}
         />
       )}
 
-      {/* HOME */}
+      {/* =====================================
+          HOME
+      ===================================== */}
       {page === "home" && !profilePage && (
         <Home
           onMovieClick={(movieId) => {
             setSelectedMovieId(movieId);
             setPage("details");
           }}
-          onMyListClick={() => setPage("mylist")}
-          onSearchClick={() => setPage("search")}
-          onProfileClick={() => setProfilePage(true)}
+
+          onMyListClick={() => {
+            setPage("mylist");
+          }}
+
+          onSearchClick={() => {
+            setPage("search");
+          }}
+
+          onProfileClick={() => {
+            setProfilePage(true);
+          }}
         />
       )}
 
-      {/* PROFILE */}
+      {/* =====================================
+          PROFILE
+      ===================================== */}
       {profilePage && (
         <Profile
-          onBack={() => setProfilePage(false)}
+          onBack={() => {
+            setProfilePage(false);
+            setPage("home");
+          }}
 
           onMyListClick={() => {
             setProfilePage(false);
@@ -85,18 +192,21 @@ function App() {
             setPage("details");
           }}
 
-          onLogout={() => {
-            localStorage.removeItem("userId");
-            window.location.reload();
-          }}
+          onLogout={handleLogout}
         />
       )}
 
-      {/* MOVIE DETAILS */}
+      {/* =====================================
+          MOVIE DETAILS
+      ===================================== */}
       {page === "details" && !profilePage && (
         <MovieDetails
           movieId={selectedMovieId}
-          onBack={() => setPage("home")}
+
+          onBack={() => {
+            setPage("home");
+          }}
+
           onWatch={(movieId) => {
             setWatchMovieId(movieId);
             setPage("watch");
@@ -104,10 +214,28 @@ function App() {
         />
       )}
 
-      {/* MY LIST */}
+      {/* =====================================
+          WATCH MOVIE
+      ===================================== */}
+      {page === "watch" && !profilePage && (
+        <WatchMovie
+          movieId={watchMovieId}
+
+          onBack={() => {
+            setPage("details");
+          }}
+        />
+      )}
+
+      {/* =====================================
+          MY LIST
+      ===================================== */}
       {page === "mylist" && !profilePage && (
         <MyList
-          onBack={() => setPage("home")}
+          onBack={() => {
+            setPage("home");
+          }}
+
           onMovieClick={(movieId) => {
             setSelectedMovieId(movieId);
             setPage("details");
@@ -115,215 +243,97 @@ function App() {
         />
       )}
 
-      {/* WATCH MOVIE */}
-      {page === "watch" && !profilePage && (
-        <WatchMovie
-          movieId={watchMovieId}
-          onBack={() => setPage("details")}
-        />
-      )}
-
-      {/* SEARCH */}
+      {/* =====================================
+          SEARCH PAGE
+      ===================================== */}
       {page === "search" && !profilePage && (
         <div className="cine-search-page">
 
-          {/* SEARCH HEADER */}
-          <div className="cine-search-header">
+          {/* Search Header */}
+          <div className="search-header">
 
             <button
-              className="cine-back-btn"
-              onClick={() => setPage("home")}
+              className="back-button"
+              onClick={() => {
+                setPage("home");
+              }}
             >
               ← Back
             </button>
 
-            <div className="cine-logo">
-              <div className="cine-logo-mark">C</div>
-              <span>CineGraph</span>
-            </div>
+            <h1>Search Movies</h1>
 
           </div>
 
-          {/* SEARCH CONTENT */}
-          <main className="cine-search-content">
+          {/* Search Box */}
+          <div className="search-box">
 
-            <p className="cine-section-label">
-              DISCOVER SOMETHING NEW
-            </p>
-
-            <h1>Search Movies</h1>
-
-            {/* SEARCH BOX */}
-            <div className="cine-search-box">
-
-              <span className="cine-search-icon">
-                ⌕
-              </span>
-
-              <input
-                type="text"
-                placeholder="Search for movies..."
-                value={searchQuery}
-                onChange={(event) =>
-                  setSearchQuery(event.target.value)
+            <input
+              type="text"
+              placeholder="Search for a movie..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearch();
                 }
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    handleSearch();
-                  }
-                }}
-              />
+              }}
+            />
 
-              <button
-                type="button"
-                onClick={handleSearch}
-              >
-                Search
-              </button>
+            <button
+              onClick={handleSearch}
+            >
+              Search
+            </button>
 
-            </div>
+          </div>
 
-            {/* SEARCH RESULTS */}
-            {searchResults.length > 0 ? (
+          {/* Search Results */}
+          <div className="search-results">
 
-              <section className="cine-section">
-
-                <div className="cine-section-header">
-
-                  <div>
-                    <p className="cine-section-label">
-                      RESULTS FOR
-                    </p>
-
-                    <h2>
-                      "{searchQuery}"
-                    </h2>
-                  </div>
-
-                </div>
-
-                <div className="cine-movie-row">
-
-                  {searchResults.map((movie) => {
-
-                    const posterUrl = movie.poster_path
-                      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                      : null;
-
-                    return (
-                      <div
-                        className="cine-movie-card"
-                        key={movie.id}
-                        onClick={() => {
-                          setSelectedMovieId(movie.id);
-                          setPage("details");
-                        }}
-                      >
-
-                        <div className="cine-poster">
-
-                          {posterUrl ? (
-                            <img
-                              src={posterUrl}
-                              alt={
-                                movie.title ||
-                                "Movie poster"
-                              }
-                            />
-                          ) : (
-                            <div
-                              style={{
-                                width: "100%",
-                                height: "100%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                color: "#64748b",
-                                fontSize: "12px",
-                              }}
-                            >
-                              No Poster
-                            </div>
-                          )}
-
-                        </div>
-
-                        <div className="cine-card-info">
-
-                          <h3>
-                            {movie.title ||
-                              "Untitled Movie"}
-                          </h3>
-
-                          <p>
-                            {movie.release_date
-                              ? movie.release_date.slice(
-                                  0,
-                                  4
-                                )
-                              : "N/A"}
-
-                            {" • "}
-
-                            ★{" "}
-
-                            {typeof movie.vote_average ===
-                            "number"
-                              ? movie.vote_average.toFixed(1)
-                              : "N/A"}
-                          </p>
-
-                        </div>
-
-                      </div>
-                    );
-                  })}
-
-                </div>
-
-              </section>
-
-            ) : searchQuery ? (
-
-              <div className="cine-search-empty">
-
-                <div className="cine-search-empty-icon">
-                  🎬
-                </div>
-
-                <h2>
-                  No movies found
-                </h2>
-
-                <p>
-                  Try searching with a different movie
-                  name.
-                </p>
-
-              </div>
-
+            {searchResults.length === 0 ? (
+              <p className="no-results">
+                No movies found.
+              </p>
             ) : (
+              searchResults.map((movie) => (
+                <div
+                  key={movie.id}
+                  className="search-movie-card"
+                  onClick={() => {
+                    setSelectedMovieId(movie.id);
+                    setPage("details");
+                  }}
+                >
 
-              <div className="cine-search-empty">
+                  {movie.poster_path ? (
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                      alt={movie.title}
+                    />
+                  ) : (
+                    <div className="no-poster">
+                      No Image
+                    </div>
+                  )}
 
-                <div className="cine-search-empty-icon">
-                  🎬
+                  <h3>
+                    {movie.title}
+                  </h3>
+
+                  {movie.release_date && (
+                    <p>
+                      {movie.release_date}
+                    </p>
+                  )}
+
                 </div>
-
-                <h2>
-                  Find your next favorite movie
-                </h2>
-
-                <p>
-                  Search for a movie by title and
-                  explore its details.
-                </p>
-
-              </div>
-
+              ))
             )}
 
-          </main>
+          </div>
 
         </div>
       )}
@@ -332,4 +342,3 @@ function App() {
 }
 
 export default App;
-
