@@ -17,7 +17,8 @@ import com.cinegraph.backend.service.UserService;
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = {
         "http://localhost:5173",
-        "http://localhost:5174"
+        "http://localhost:5174",
+        "https://cinegraph-lt45gxg1r-ruchitasatpute570-2986.vercel.app"
 })
 public class AuthController {
 
