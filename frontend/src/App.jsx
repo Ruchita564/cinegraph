@@ -238,14 +238,24 @@ function App() {
                 setSearchQuery("");
               }}
             >
-              ← Back
+              <span className="back-arrow">←</span>
+              <span>Back to Home</span>
             </button>
 
             <div className="search-title">
-              <h1>Search Movies</h1>
+
+              <span className="search-label">
+                CINEGRAPH
+              </span>
+
+              <h1>
+                Find Your Next Movie
+              </h1>
+
               <p>
-                Find your next movie to watch
+                Search through thousands of movies and discover something you'll love.
               </p>
+
             </div>
 
           </div>
@@ -296,9 +306,7 @@ function App() {
 
           </div>
 
-          {/* =========================
-              SEARCH RESULTS
-          ========================= */}
+          {/* SEARCH RESULTS */}
           {searchResults.length > 0 ? (
 
             <div className="search-content">
@@ -326,9 +334,7 @@ function App() {
                     key={movie.id}
                     className="search-movie-card"
                     onClick={() => {
-                      setSelectedMovieId(
-                        movie.id
-                      );
+                      setSelectedMovieId(movie.id);
                       setPage("details");
                     }}
                   >
@@ -347,8 +353,15 @@ function App() {
                       ) : (
 
                         <div className="search-no-poster">
-                          <span>🎬</span>
-                          <p>No Image</p>
+
+                          <span>
+                            🎬
+                          </span>
+
+                          <p>
+                            No Image
+                          </p>
+
                         </div>
 
                       )}
@@ -382,8 +395,7 @@ function App() {
                           </span>
                         )}
 
-                        {movie.vote_average !==
-                          undefined && (
+                        {movie.vote_average !== undefined && (
                           <span className="movie-rating">
                             ⭐{" "}
                             {movie.vote_average.toFixed(
@@ -406,9 +418,7 @@ function App() {
 
           ) : (
 
-            /* =========================
-               EMPTY SEARCH STATE
-            ========================= */
+            /* EMPTY SEARCH STATE */
             <div className="search-empty">
 
               {searchQuery ? (

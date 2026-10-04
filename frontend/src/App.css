@@ -1,3 +1,4 @@
+```css
 .counter {
   font-size: 16px;
   padding: 5px 10px;
@@ -11,6 +12,7 @@
   &:hover {
     border-color: var(--accent-border);
   }
+
   &:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
@@ -42,8 +44,8 @@
     z-index: 1;
     top: 34px;
     height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
+    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg)
+      rotateY(39deg) scale(1.4);
   }
 
   .vite {
@@ -51,8 +53,8 @@
     top: 107px;
     height: 26px;
     width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
+    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg)
+      rotateY(39deg) scale(0.8);
   }
 }
 
@@ -78,6 +80,7 @@
   & > div {
     flex: 1 1 0;
     padding: 32px;
+
     @media (max-width: 1024px) {
       padding: 24px 20px;
     }
@@ -130,6 +133,7 @@
     &:hover {
       box-shadow: var(--shadow);
     }
+
     .button-icon {
       height: 18px;
       width: 18px;
@@ -156,6 +160,7 @@
 #spacer {
   height: 88px;
   border-top: 1px solid var(--border);
+
   @media (max-width: 1024px) {
     height: 48px;
   }
@@ -177,17 +182,20 @@
     left: 0;
     border-left-color: var(--border);
   }
+
   &::after {
     right: 0;
     border-right-color: var(--border);
   }
 }
+
 /* =========================================================
    CINEGRAPH - SEARCH PAGE
    ========================================================= */
 
 .search-page {
   min-height: 100vh;
+
   background:
     radial-gradient(
       circle at 15% 10%,
@@ -202,48 +210,102 @@
     #08090d;
 
   color: #ffffff;
+
   padding: 35px 6%;
+
   box-sizing: border-box;
 }
 
 /* =========================
-   HEADER
+   SEARCH HEADER
    ========================= */
 
 .search-header {
   display: flex;
+
   align-items: center;
-  gap: 30px;
-  margin-bottom: 45px;
+
+  gap: 35px;
+
+  margin-bottom: 50px;
 }
 
 .search-back-button {
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.06);
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  background: rgba(255, 255, 255, 0.05);
+
   color: #ffffff;
-  padding: 11px 18px;
+
+  padding: 12px 18px;
+
   border-radius: 10px;
-  font-size: 15px;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
   cursor: pointer;
-  transition: 0.25s ease;
+
+  transition: all 0.25s ease;
 }
 
 .search-back-button:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
+
+  border-color: rgba(255, 255, 255, 0.25);
+
   transform: translateX(-3px);
+}
+
+.back-arrow {
+  font-size: 18px;
+
+  line-height: 1;
+}
+
+.search-title {
+  flex: 1;
+}
+
+.search-label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #8f72ff;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
 }
 
 .search-title h1 {
   margin: 0;
+
   font-size: 36px;
+
   font-weight: 700;
-  letter-spacing: -0.5px;
+
+  letter-spacing: -0.6px;
 }
 
 .search-title p {
-  margin: 7px 0 0;
+  margin: 8px 0 0;
+
   color: #9699a8;
+
   font-size: 15px;
+
+  line-height: 1.5;
 }
 
 /* =========================
@@ -252,19 +314,25 @@
 
 .search-main-box {
   max-width: 1000px;
+
   display: flex;
+
   gap: 12px;
+
   margin: 0 auto 55px;
 }
 
 .search-input-wrapper {
   flex: 1;
+
   height: 58px;
 
   display: flex;
+
   align-items: center;
 
   background: rgba(255, 255, 255, 0.07);
+
   border: 1px solid rgba(255, 255, 255, 0.13);
 
   border-radius: 14px;
@@ -278,20 +346,28 @@
 
 .search-input-wrapper:focus-within {
   border-color: rgba(135, 95, 255, 0.8);
-  box-shadow: 0 0 0 4px rgba(110, 75, 230, 0.12);
+
+  box-shadow:
+    0 0 0 4px rgba(110, 75, 230, 0.12);
 }
 
 .search-icon {
   font-size: 27px;
+
   color: #8f94a6;
+
   margin-right: 12px;
+
   line-height: 1;
 }
 
 .search-input-wrapper input {
   flex: 1;
 
+  min-width: 0;
+
   border: none;
+
   outline: none;
 
   background: transparent;
@@ -307,7 +383,9 @@
 
 .clear-search {
   border: none;
+
   background: transparent;
+
   color: #8d91a2;
 
   font-size: 25px;
@@ -321,6 +399,8 @@
 
 .clear-search:hover {
   color: #ffffff;
+
+  transform: scale(1.1);
 }
 
 .search-main-button {
@@ -329,17 +409,20 @@
   padding: 0 30px;
 
   border: none;
+
   border-radius: 14px;
 
-  background: linear-gradient(
-    135deg,
-    #7048e8,
-    #4d7cff
-  );
+  background:
+    linear-gradient(
+      135deg,
+      #7048e8,
+      #4d7cff
+    );
 
   color: #ffffff;
 
   font-size: 16px;
+
   font-weight: 600;
 
   cursor: pointer;
@@ -347,7 +430,7 @@
   box-shadow:
     0 8px 25px rgba(75, 70, 220, 0.25);
 
-  transition: 0.25s ease;
+  transition: all 0.25s ease;
 }
 
 .search-main-button:hover {
@@ -357,12 +440,17 @@
     0 12px 30px rgba(75, 70, 220, 0.38);
 }
 
+.search-main-button:active {
+  transform: translateY(0);
+}
+
 /* =========================
    RESULTS HEADER
    ========================= */
 
 .search-content {
   max-width: 1400px;
+
   margin: 0 auto;
 }
 
@@ -374,6 +462,7 @@
   margin: 0;
 
   font-size: 23px;
+
   font-weight: 600;
 }
 
@@ -442,10 +531,20 @@
 
   box-shadow:
     0 8px 25px rgba(0, 0, 0, 0.3);
+
+  transition:
+    box-shadow 0.3s ease;
+}
+
+.search-movie-card:hover
+.search-poster-wrapper {
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.5);
 }
 
 .search-movie-poster {
   width: 100%;
+
   height: 100%;
 
   display: block;
@@ -476,6 +575,7 @@
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   background:
@@ -497,11 +597,13 @@
 
 .play-icon {
   width: 52px;
+
   height: 52px;
 
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   border-radius: 50%;
@@ -516,6 +618,13 @@
 
   box-shadow:
     0 5px 25px rgba(0, 0, 0, 0.4);
+
+  transition: transform 0.2s ease;
+}
+
+.search-movie-card:hover
+.play-icon {
+  transform: scale(1.08);
 }
 
 /* =========================
@@ -524,6 +633,7 @@
 
 .search-no-poster {
   width: 100%;
+
   height: 100%;
 
   display: flex;
@@ -531,6 +641,7 @@
   flex-direction: column;
 
   align-items: center;
+
   justify-content: center;
 
   color: #777b8b;
@@ -545,6 +656,7 @@
 
 .search-no-poster span {
   font-size: 40px;
+
   margin-bottom: 8px;
 }
 
@@ -566,12 +678,15 @@
   margin: 0;
 
   font-size: 15px;
+
   font-weight: 600;
 
   color: #f4f4f7;
 
   white-space: nowrap;
+
   overflow: hidden;
+
   text-overflow: ellipsis;
 }
 
@@ -605,6 +720,7 @@
   flex-direction: column;
 
   align-items: center;
+
   justify-content: center;
 
   text-align: center;
@@ -614,11 +730,13 @@
 
 .empty-icon {
   width: 75px;
+
   height: 75px;
 
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   border-radius: 22px;
@@ -668,6 +786,8 @@
 
 .search-empty button:hover {
   background: rgba(255, 255, 255, 0.14);
+
+  transform: translateY(-1px);
 }
 
 /* =========================
@@ -687,11 +807,19 @@
 
     gap: 18px;
 
-    margin-bottom: 30px;
+    margin-bottom: 35px;
+  }
+
+  .search-back-button {
+    padding: 10px 15px;
   }
 
   .search-title h1 {
     font-size: 29px;
+  }
+
+  .search-title p {
+    font-size: 14px;
   }
 
   .search-main-box {
@@ -716,6 +844,14 @@
 
 @media (max-width: 420px) {
 
+  .search-page {
+    padding: 20px 15px;
+  }
+
+  .search-title h1 {
+    font-size: 26px;
+  }
+
   .search-movie-grid {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
@@ -728,4 +864,13 @@
   .search-movie-meta {
     font-size: 11px;
   }
+
+  .search-input-wrapper {
+    height: 54px;
+  }
+
+  .search-main-button {
+    height: 54px;
+  }
 }
+```
