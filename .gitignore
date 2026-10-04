@@ -1,0 +1,23 @@
+# Environment files
+.env
+.env.*
+
+# Java / Spring Boot
+backend/target/
+backend/.mvn/
+backend/*.log
+
+# Node / React
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
