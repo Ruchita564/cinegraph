@@ -16,8 +16,8 @@ const response = await axios.get(
         const movieDetails = await Promise.all(
           response.data.map(async (item) => {
             const movieResponse = await axios.get(
-              `${import.meta.env.VITE_API_URL}:8080/api/movies/${item.movieId}`
-            );
+  `${import.meta.env.VITE_API_URL}/api/movies/${item.movieId}`
+);
 
             return movieResponse.data;
           })
