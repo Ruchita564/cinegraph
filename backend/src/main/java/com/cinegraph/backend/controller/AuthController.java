@@ -1,7 +1,6 @@
 package com.cinegraph.backend.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +14,6 @@ import com.cinegraph.backend.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = {
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "https://cinegraph-jvogghe10-ruchitasatpute570-2986.vercel.app",
-        "https://cinegraph-lt45gxg1r-ruchitasatpute570-2986.vercel.app"
-})
 public class AuthController {
 
     private final UserService userService;
